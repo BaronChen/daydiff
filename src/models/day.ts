@@ -30,17 +30,21 @@ export class Day {
     return this.getDaysBeforeCurrentMonth() + this.day;
   }
 
+  public getElapsedDaysOf(otherDay: Day) {
+    return Math.abs(this.getDaysSince1900() - otherDay.getDaysSince1900()) - 1;
+  }
+
   private validate() {
     if (this.year < 1901 || this.year > 2999) {
-      throw new Error('Invalid year');
+      throw new Error('Invalid year.');
     }
 
     if (this.month < 1 || this.month > 12) {
-      throw new Error('Invalid month');
+      throw new Error('Invalid month.');
     }
 
     if (this.day < 1 || this.day > this.getDaysInMonth(this.month)) {
-      throw new Error('Invalid day');
+      throw new Error('Invalid day.');
     }
   }
 

@@ -62,6 +62,11 @@ describe('Day class', () => {
           day: 0
         },
         {
+          year: 2012,
+          month: 1,
+          day: -2
+        },
+        {
           year: 2100,
           month: 2,
           day: 29
@@ -180,7 +185,7 @@ describe('Day class', () => {
     });
   });
 
-  describe.only('getDaysSince1900', () => {
+  describe('getDaysSince1900', () => {
     const theories: Array<{ year: number; month: number; day: number }> = [
       {
         year: 1901,
@@ -237,8 +242,68 @@ describe('Day class', () => {
         const momentDay = moment(new Date(theory.year, theory.month - 1, theory.day));
         const momentDay1900 = moment(new Date(1900, 11, 31));
         expect(day.getDaysSince1900()).to.equal(
-          Math.floor(moment.duration(momentDay.diff(momentDay1900)).asDays())
+          Math.round(moment.duration(momentDay.diff(momentDay1900)).asDays())
         );
+      });
+    });
+  });
+
+  describe('getElapsedDaysOf', () => {
+    const theories: Array<{
+      day1: { year: number; month: number; day: number };
+      day2: { year: number; month: number; day: number };
+    }> = [
+      {
+        day1: { year: 1972, month: 11, day: 7 },
+        day2: { year: 1972, month: 11, day: 8 }
+      },
+      {
+        day1: { year: 2000, month: 1, day: 1 },
+        day2: { year: 2000, month: 1, day: 3 }
+      },
+      {
+        day1: { year: 1983, month: 6, day: 2 },
+        day2: { year: 1983, month: 6, day: 22 }
+      },
+      {
+        day1: { year: 1984, month: 7, day: 4 },
+        day2: { year: 1984, month: 12, day: 25 }
+      },
+      {
+        day1: { year: 1989, month: 1, day: 3 },
+        day2: { year: 1983, month: 8, day: 3 }
+      },
+      {
+        day1: { year: 1996, month: 1, day: 1 },
+        day2: { year: 1996, month: 4, day: 1 }
+      },
+      {
+        day1: { year: 2200, month: 1, day: 1 },
+        day2: { year: 2200, month: 4, day: 1 }
+      },
+      {
+        day1: { year: 1901, month: 1, day: 1 },
+        day2: { year: 2999, month: 12, day: 31 }
+      }
+    ];
+
+    theories.forEach(theory => {
+      it(`should get correct elapsed days between ${theory.day1.day}/${theory.day1.month}/${
+        theory.day1.year
+      } and ${theory.day2.day}/${theory.day2.month}/${theory.day2.year}`, () => {
+        const day1 = new Day(theory.day1.year, theory.day1.month, theory.day1.day);
+        const day2 = new Day(theory.day2.year, theory.day2.month, theory.day2.day);
+        const momentDay1 = moment(
+          new Date(theory.day1.year, theory.day1.month - 1, theory.day1.day)
+        );
+        const momentDay2 = moment(
+          new Date(theory.day2.year, theory.day2.month - 1, theory.day2.day)
+        );
+
+        const expected = Math.round(
+          Math.abs(moment.duration(momentDay1.diff(momentDay2)).asDays()) - 1
+        );
+        expect(day1.getElapsedDaysOf(day2)).to.equal(expected);
       });
     });
   });
