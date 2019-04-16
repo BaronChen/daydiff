@@ -19,7 +19,7 @@ $ yarn install or $ npm install
 ### Build
 
 ```
-$ arn run build or $ npm run build
+$ yarn run build or $ npm run build
 ```
 
 ### Run Command
