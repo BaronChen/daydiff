@@ -13,6 +13,16 @@ A small node cli tool to calculate the elapsed days between two different days, 
 ### Build
 
 ```
+yarn install
+```
+
+or
+
+```
+npm install
+```
+
+```
 yarn run build
 ```
 
@@ -77,6 +87,16 @@ docker run daydiff yarn start <date1> <date2>
 ## Develope
 
 ### Run without build
+
+```
+yarn install
+```
+
+or
+
+```
+npm install
+```
 
 ```
 yarn run dev <date1> <date2>
