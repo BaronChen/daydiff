@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node main.ts",
+    "dev": "ts-node ./src/main.ts",
     "test": "mocha --recursive --require ts-node/register \"src/**/*.spec.ts\"",
     "build": "tsc",
-    "run": "node build/main.js"
+    "start": "node build/main.js"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",

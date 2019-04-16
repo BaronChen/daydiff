@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as moment from 'moment';
-import { Day } from './day';
+import { MyDate } from './myDate';
 
 describe('Day class', () => {
   describe('isLeapYear', () => {
@@ -22,7 +22,7 @@ describe('Day class', () => {
 
     isLeapYearTheories.forEach(theory => {
       it(`${theory.year} is leap year: ${theory.expected}`, () => {
-        const day = new Day(theory.year, 1, 1);
+        const day = new MyDate(theory.year, 1, 1);
         expect(day.isLeapYear()).to.equal(theory.expected);
       });
     });
@@ -34,7 +34,7 @@ describe('Day class', () => {
 
       wrongYearTheories.forEach(theory => {
         it(`Year ${theory} is not valid`, () => {
-          expect(() => new Day(theory, 1, 1)).to.throw('Invalid year');
+          expect(() => new MyDate(theory, 1, 1)).to.throw('Invalid year');
         });
       });
     });
@@ -44,7 +44,7 @@ describe('Day class', () => {
 
       wrongMonthTheories.forEach(theory => {
         it(`Month ${theory} is not valid`, () => {
-          expect(() => new Day(1988, theory, 1)).to.throw('Invalid month');
+          expect(() => new MyDate(1988, theory, 1)).to.throw('Invalid month');
         });
       });
     });
@@ -70,12 +70,17 @@ describe('Day class', () => {
           year: 2100,
           month: 2,
           day: 29
+        },
+        {
+          year: 1976,
+          month: 6,
+          day: 31
         }
       ];
 
       wrongDateTheories.forEach(theory => {
         it(`${theory.day}/${theory.month}/${theory.year} is not valid`, () => {
-          expect(() => new Day(theory.year, theory.month, theory.day)).to.throw('Invalid day');
+          expect(() => new MyDate(theory.year, theory.month, theory.day)).to.throw('Invalid day');
         });
       });
     });
@@ -116,7 +121,7 @@ describe('Day class', () => {
 
       validDateTheories.forEach(theory => {
         it(`${theory.day}/${theory.month}/${theory.year} is valid`, () => {
-          expect(() => new Day(theory.year, theory.month, theory.day)).to.not.throw();
+          expect(() => new MyDate(theory.year, theory.month, theory.day)).to.not.throw();
         });
       });
     });
@@ -178,7 +183,7 @@ describe('Day class', () => {
 
     theories.forEach(theory => {
       it(`should get correct days in year for ${theory.day}/${theory.month}/${theory.year}`, () => {
-        const day = new Day(theory.year, theory.month, theory.day);
+        const day = new MyDate(theory.year, theory.month, theory.day);
         const momentDay = moment(new Date(theory.year, theory.month - 1, theory.day));
         expect(day.getDaysInYear()).to.equal(momentDay.dayOfYear());
       });
@@ -238,7 +243,7 @@ describe('Day class', () => {
       it(`should get correct days since 1900 for ${theory.day}/${theory.month}/${
         theory.year
       }`, () => {
-        const day = new Day(theory.year, theory.month, theory.day);
+        const day = new MyDate(theory.year, theory.month, theory.day);
         const momentDay = moment(new Date(theory.year, theory.month - 1, theory.day));
         const momentDay1900 = moment(new Date(1900, 11, 31));
         expect(day.getDaysSince1900()).to.equal(
@@ -291,8 +296,8 @@ describe('Day class', () => {
       it(`should get correct elapsed days between ${theory.day1.day}/${theory.day1.month}/${
         theory.day1.year
       } and ${theory.day2.day}/${theory.day2.month}/${theory.day2.year}`, () => {
-        const day1 = new Day(theory.day1.year, theory.day1.month, theory.day1.day);
-        const day2 = new Day(theory.day2.year, theory.day2.month, theory.day2.day);
+        const day1 = new MyDate(theory.day1.year, theory.day1.month, theory.day1.day);
+        const day2 = new MyDate(theory.day2.year, theory.day2.month, theory.day2.day);
         const momentDay1 = moment(
           new Date(theory.day1.year, theory.day1.month - 1, theory.day1.day)
         );

@@ -1,4 +1,4 @@
-export class Day {
+export class MyDate {
   public year: number;
   public month: number;
   public day: number;
@@ -30,7 +30,7 @@ export class Day {
     return this.getDaysBeforeCurrentMonth() + this.day;
   }
 
-  public getElapsedDaysOf(otherDay: Day) {
+  public getElapsedDaysOf(otherDay: MyDate) {
     return Math.abs(this.getDaysSince1900() - otherDay.getDaysSince1900()) - 1;
   }
 
