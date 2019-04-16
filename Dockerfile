@@ -1,0 +1,10 @@
+FROM node:10.15.3-alpine
+WORKDIR /tmp
+COPY ["package.json", "yarn.lock", "./"]
+RUN yarn install  
+
+WORKDIR /app
+RUN mv /tmp/node_modules /app
+COPY . .
+RUN yarn build
+
